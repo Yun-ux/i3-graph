@@ -1,26 +1,32 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import Graph from "./components/Graph";
 
 function App() {
+  // states
+  const [data, setData] = useState([90, 78, 93, 78, 8]);
+  // methods
+  const handleChange = (val, idx) => {
+    const newData = [...data];
+    newData[idx] = +val;
+    setData(newData);
+  };
+  // jsx
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      {data.map((v, i) => (
+        // eslint-disable-next-line react/jsx-key
+        <div>
+          <span>HTML skills:</span>
+          <input
+            type="range"
+            defaultValue={v}
+            onChange={e => handleChange(e.target.value, i)}
+          />
+          <span>{`${v}/100`}</span>
+          <Graph />
+        </div>
+      ))}
+    </>
   );
 }
-
 export default App;
