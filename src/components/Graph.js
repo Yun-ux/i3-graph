@@ -5,26 +5,39 @@ const Graph = ({ data }) => {
   const chartElRef = useRef(null);
   const chartRef = useRef(null);
   useEffect(() => {
-    const ctx = chartElRef.current.getContext("2d");
-    new Chart(ctx, {
+    const ctx = chartElRef.current;
+    chartRef.current = new Chart(ctx, {
       type: "bar",
       data: {
-        labels: ["HTML", "CSS", "JavaScript", "PHP", "Python"],
+        labels: ["HTML", "CSS", "React", "Photoshop", "illustrator"],
         datasets: [
           {
             label: "Mes compétences",
             data: data,
-            backgroundColor: ["red", "green", "blue", "violet", "pink"]
+            backgroundColor: [
+              "rgba(255, 192, 203, 0.5)",
+              "rgba(176,224,230 ,0.5)",
+              "rgba(238,232,170 ,0.5)",
+              "rgba(152,251,152 ,0.5)",
+              "rgba(147,112,219 ,0.5)"
+            ],
+            borderColor: [
+              "rgba(255, 192, 203, 1)",
+              "rgba(176,224,230 ,1)",
+              "rgba(238,232,170 ,1)",
+              "rgba(152,251,152 ,1)",
+              "rgba(147,112,219 ,1)"
+            ]
           }
         ]
       }
     });
   }, []);
   useEffect(() => {
-    chartRef.current.data.datasets[0].data = data;
-    //chartRef.current && chartElRef.current.update();
-    // a la place du if
-    chartRef.current.update();
+    if (chartRef.current) {
+      chartRef.current.data.datasets[0].data = data;
+      chartRef.current.update();
+    }
   }, [data]);
   return (
     <canvas
